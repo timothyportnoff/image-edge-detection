@@ -3,7 +3,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
-//#include <cmath>
+#include <cmath>
 #include "prewitt_filter.h"
 using namespace cimg_library;
 using namespace std;
@@ -11,8 +11,6 @@ using namespace std;
 //Global varibales
 const int COLORS = 3;
 int cols, rows, stride;
-
-void filter1(vector<vector<vector<int>>> &vec);
 
 void die (string s = "No rason given.") {
 	cout << "Program Terminated: " << s << endl;
@@ -85,7 +83,6 @@ int main(int argc, char **argv) {
 
 	//Run filter
 	start_time = clock();
-	//FIXME dot_image(vec, dot);
 	prewitt_filter(vec);
 	end_time = clock();
 	cerr << "Filter time: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
