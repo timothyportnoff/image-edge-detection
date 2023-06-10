@@ -12,3 +12,4 @@ For further details about the CImg library, including usage examples and documen
 
 Note: If you have already installed the CImg library on your system, ensure that the necessary headers and library files are correctly configured in your project's build settings.
 
+Note: You may need to compile with -lm -lpthread -lX11, as they might be required libraries for CImg
