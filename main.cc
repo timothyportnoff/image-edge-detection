@@ -86,6 +86,7 @@ int main(int argc, char **argv) {
 	//Run filter
 	start_time = clock();
 	//FIXME dot_image(vec, dot);
+	prewitt_filter(vec);
 	end_time = clock();
 	cerr << "Filter time: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
 
