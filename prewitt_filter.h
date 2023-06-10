@@ -24,7 +24,7 @@ std::vector<int> prewitt_sum_horizontal(std::vector<std::vector<std::vector<int>
 	r_total -= vec[i+1][j+1][R];
 
 	g_total += vec[i-1][j][G];
-	g_total += vec[i-1][j+1][R];
+	g_total += vec[i-1][j+1][G];
 	g_total += vec[i-1][j-1][G];
 	g_total -= vec[i+1][j][G];
 	g_total -= vec[i+1][j-1][G];
@@ -51,7 +51,7 @@ std::vector<int> prewitt_sum_vertical(std::vector<std::vector<std::vector<int>>>
 	r_total -= vec[i+1][j+1][R];
 
 	g_total += vec[i][j-1][G];
-	g_total += vec[i+1][j-1][R];
+	g_total += vec[i+1][j-1][G];
 	g_total += vec[i-1][j-1][G];
 	g_total -= vec[i][j+1][G];
 	g_total -= vec[i-1][j+1][G];
