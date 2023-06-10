@@ -1,9 +1,6 @@
 #include <CImg.h>
 #include <vector>
 #include <iostream>
-#include <iomanip>
-#include <cstdlib>
-#include <cmath>
 #include "prewitt_filter.h"
 using namespace cimg_library;
 using namespace std;
@@ -74,12 +71,13 @@ int main(int argc, char **argv) {
 	//Create a new 3D vector to pass to the image filter code. even though it is of ints, it is really uint8_t's, any value over 255 will cap at 255
 	vector<vector<vector<int>>> vec(cols, vector<vector<int>>(rows, vector<int>(COLORS)));
 
-	//Copy data from image to vec to make it easier on students
-	//TODO I'm not a student anymore, I'm cool now. Get rid of this to make it harder on students
+	//Copy data from image to vec to make it easier to manipulate
 	image_to_vec(image, vec); 
 
 	clock_t end_time = clock();
 	cerr << "Image load time: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
+
+	//TODO Blur image to fix compression loss on lower quality images
 
 	//Run filter
 	start_time = clock();
@@ -88,9 +86,9 @@ int main(int argc, char **argv) {
 	cerr << "Filter time: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
 
 	//Save image
-	vec_to_image(image, vec); //Copy from the vec to the image object
-	image.save_png("png.png"); //Use this for higher quality output
-	//image.save_jpeg("dot.jpg", 100); //Output result after filter 1
+	vec_to_image(image, vec); 			//Copy from the vec to the image object
+	if (1) image.save_png("png.png"); 		//PNG output
+	else image.save_jpeg("dot.jpg", 100); 	//JPG Output with compression
 	end_time = clock();
 	cerr << "Time to write image: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
 }
