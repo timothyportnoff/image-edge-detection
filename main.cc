@@ -1,6 +1,7 @@
 #include <CImg.h>
 #include <vector>
 #include <iostream>
+#include <cstdlib>
 #include "prewitt_filter.h"
 using namespace cimg_library;
 using namespace std;
@@ -9,7 +10,7 @@ using namespace std;
 const int COLORS = 3;
 int cols, rows, stride;
 
-void die (string s = "No rason given.") {
+void die (string s = "No reason given.") {
 	cout << "Program Terminated: " << s << endl;
 	exit(1);
 }
@@ -21,8 +22,8 @@ void warning (string s = "No warning given.") {
 
 //This code must be run with a command line parameter, so print error and quit if they don't run it right
 void usage() {
-	cout << "INCORRECT USAGE: Needs to be called with a.out [image.jpg]\n";
-	cout << "For example, a.out ~/pictures/kyoto_original.jpg\n";
+	cout << "INCORRECT USAGE: Needs to be called with a.out [~/path/to/image.jpg] [threshold 0-255]\n";
+	cout << "For example, a.out ~/pictures/kyoto_original.jpg 80\n";
 	exit(1);
 }
 
@@ -57,11 +58,15 @@ void vec_to_image(CImg<unsigned char> &image, vector<vector<vector<int>>> &vec) 
 //Comment
 int main(int argc, char **argv) {
 	//Check command line parameters
-	if (argc != 2) usage(); 
+	if (argc != 3) usage(); 
 
-	//Load the image, make the dot.
+	//Load the image
 	clock_t start_time = clock();
 	CImg<unsigned char> image(argv[1]);
+	
+	//Get our line threshold for the prewitt_filter function
+	int threshold = std::atoi(argv[2]);
+	if (threshold > 360) die("Threshold above max! Maximum = sqrt(2pow(255,2)) = 360");
 
 	//Set globals
 	cols = image.width();
@@ -81,7 +86,7 @@ int main(int argc, char **argv) {
 
 	//Run filter
 	start_time = clock();
-	prewitt_filter(vec);
+	prewitt_filter(vec, threshold);
 	end_time = clock();
 	cerr << "Filter time: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
 

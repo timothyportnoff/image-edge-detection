@@ -4,13 +4,12 @@
 //Global constants
 const int R = 0, G = 1, B = 2, T = 3;
 const int num_colors = 3;
-const int magnitude_threshold = 50;
 
 void set_pixel(std::vector<std::vector<std::vector<int>>> &vec, size_t &i, size_t &j, int r, int g, int b);
 std::vector<int> prewitt_sum_horizontal(std::vector<std::vector<std::vector<int>>> &vec, size_t &i, size_t &j); 
 std::vector<int> prewitt_sum_vertical(std::vector<std::vector<std::vector<int>>> &vec, size_t &i, size_t &j);
 
-void prewitt_filter(std::vector<std::vector<std::vector<int>>> &input) {
+void prewitt_filter(std::vector<std::vector<std::vector<int>>> &input, int &threshold) {
 	//Get the number of rows, columns, and colors in vector and vet
 	size_t rows = input.size();
 	if (!rows) exit(1);
@@ -45,7 +44,7 @@ void prewitt_filter(std::vector<std::vector<std::vector<int>>> &input) {
 			std::vector<int> total_totals 	= {0,0,0};
 			for (size_t k = 0; k < total_totals.size(); k++) {
 				total_totals[k] = sqrt(pow(horizontal_totals[k], 2) + pow(vertical_totals[k], 2));
-				if (total_totals[k] >= magnitude_threshold) is_edge = 1;
+				if (total_totals[k] >= threshold) is_edge = 1;
 			}
 
 			//
