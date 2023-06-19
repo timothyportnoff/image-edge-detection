@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstdlib>
 #include "prewitt_filter.h"
+#include "blur_filter.h"
 using namespace cimg_library;
 using namespace std;
 
@@ -86,6 +87,7 @@ int main(int argc, char **argv) {
 
 	//Run filter
 	start_time = clock();
+	blur_filter(vec, threshold);
 	prewitt_filter(vec, threshold);
 	end_time = clock();
 	cerr << "Filter time: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
